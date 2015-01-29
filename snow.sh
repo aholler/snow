@@ -10,25 +10,27 @@ SHEIGHT=$(tput lines)
 generate_snow() {
     local i
     snow[0]=""
-    for i in $(seq 0 ${SWIDTH}); do
+    for (( i=0; i<SWIDTH; i++ )) ; {
         if [ $RANDOM -gt 30000 ]; then
             snow[0]="${snow[0]}*"
         else
             snow[0]="${snow[0]} "
         fi
-    done
+    }
 }
 
 move_snow() {
-    for i in $(seq ${SHEIGHT} -1 0); do
+    local i
+    for (( i=SHEIGHT; i>=0; i-- )) ; {
         snow[$((i+1))]=${snow[$i]}
-    done
+    }
 }
 
 print_snow() {
-    for i in $(seq 0 ${SHEIGHT}); do
+    local i
+    for (( i=0; i<=SHEIGHT; i++ )) ; {
         echo -en "\033[$i;0H${snow[$i]}"
-    done
+    }
 }
 
 
